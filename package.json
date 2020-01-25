@@ -1,0 +1,95 @@
+{
+  "name": "pretty-json",
+  "description": "It makes your API response beautiful",
+  "homepage": "https://nicedoc.io/Kikobeats/pretty-json",
+  "version": "0.0.0",
+  "main": "src/index.js",
+  "author": {
+    "email": "josefrancisco.verdu@gmail.com",
+    "name": "Kiko Beats",
+    "url": "https://kikobeats.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kikobeats/pretty-json.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Kikobeats/pretty-json/issues"
+  },
+  "keywords": [
+    "json",
+    "microservice",
+    "pretty"
+  ],
+  "dependencies": {
+    "debug-logfmt": "~1.0.4",
+    "got": "~10.3.0",
+    "micri": "~2.0.1",
+    "to-query": "~1.5.4"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "latest",
+    "@commitlint/config-conventional": "latest",
+    "ava": "latest",
+    "conventional-github-releaser": "latest",
+    "coveralls": "latest",
+    "finepack": "latest",
+    "git-authors-cli": "latest",
+    "git-dirty": "latest",
+    "husky": "latest",
+    "lint-staged": "latest",
+    "npm-check-updates": "latest",
+    "nyc": "latest",
+    "prettier-standard": "latest",
+    "standard": "latest",
+    "standard-markdown": "latest",
+    "standard-version": "latest"
+  },
+  "engines": {
+    "node": ">= 10"
+  },
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "clean": "rm -rf node_modules",
+    "contributors": "(git-authors-cli && finepack && git add package.json && git commit -m 'build: contributors' --no-verify) || true",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "dev": "TZ=UTC NODE_ENV=development DEBUG=pretty-json* node src/server.js",
+    "lint": "standard-markdown README.md && standard",
+    "postrelease": "npm run release:tags && npm run release:github && npm publish",
+    "prerelease": "git-dirty && npm run update:check && npm test && npm run contributors",
+    "pretest": "npm run lint",
+    "release": "git-authors-cli finepack && git add package.json && standard-version -a",
+    "release:github": "conventional-github-releaser -p angular",
+    "release:tags": "git push --follow-tags origin master",
+    "start": "TZ=UTC NODE_ENV=production DEBUG=pretty-json* node index.js",
+    "test": "nyc ava",
+    "update": "ncu -u",
+    "update:check": "ncu -- --error-level 2"
+  },
+  "private": true,
+  "license": "MIT",
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "package.json": [
+      "finepack"
+    ],
+    "*.js": [
+      "prettier-standard"
+    ],
+    "*.md": [
+      "standard-markdown"
+    ]
+  }
+}
