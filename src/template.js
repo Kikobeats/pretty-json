@@ -4,7 +4,7 @@ const toQuery = require('to-query')()
 const { send } = require('micri')
 const got = require('got')
 
-const html = (payload, theme) => `
+const html = (payload, theme, style) => `
 <html>
   <head>
     <link href="https://fonts.googleapis.com/css?family=PT+Mono&subset=cyrillic,cyrillic-ext,latin-ext" rel="stylesheet">
@@ -29,6 +29,7 @@ const html = (payload, theme) => `
         padding-bottom: 0;
         font-weight: normal;
         font-family: "Operator Mono", "Fira Code", "SF Mono", "Roboto Mono", Menlo, monospace;
+        ${style};
       }
     </style>
   </head>
@@ -46,7 +47,7 @@ ${JSON.stringify(payload, null, 2)}
 module.exports = async (req, res) => {
   res.setHeader('Content-Type', 'text/html; charset=utf-8')
   res.setHeader('Access-Control-Allow-Origin', '*')
-  const { url, data, theme = 'atom-dark' } = toQuery(req.url)
+  const { style, url, data, theme = 'atom-dark' } = toQuery(req.url)
   const payload = url ? await got(url).json() : data
-  return send(res, 200, html(payload, theme))
+  return send(res, 200, html(payload, theme, style))
 }
