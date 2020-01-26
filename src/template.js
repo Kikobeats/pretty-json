@@ -23,6 +23,10 @@ const html = (payload, theme) => `
         margin: 0;
         border-radius: 0;
       }
+
+      code[class*="language-"], pre[class*="language-"] {
+        font-family: "Operator Mono", "Fira Code", "SF Mono", "Roboto Mono", Menlo, monospace;
+      }
     </style>
   </head>
   <body>
