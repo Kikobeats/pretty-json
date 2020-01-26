@@ -25,6 +25,7 @@ const html = (payload, theme) => `
       }
 
       code[class*="language-"], pre[class*="language-"] {
+        font-weight: normal;
         font-family: "Operator Mono", "Fira Code", "SF Mono", "Roboto Mono", Menlo, monospace;
       }
     </style>
