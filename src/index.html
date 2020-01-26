@@ -15,6 +15,18 @@
     p code {
       font-size: .8em;
     }
+
+    p+ul {
+      margin: 1em 0;
+    }
+
+    h2 {
+      margin-bottom: 0.625em;
+    }
+
+    h3 {
+      margin-bottom: 1.25em;
+    }
   </style>
   <script>
     if (location.hostname === 'localhost') localStorage.clear();
@@ -68,22 +80,56 @@
     <article>
       <section>
         <h2><a id="wtf" href="#wtf" aria-hidden="true"></a>What is it?</h2>
-        <br>
         <p><b>pretty-json</b> is a microservice for beautify any API response payload.</p>
       </section>
       <section>
         <h2><a id="usage" href="#usage" aria-hidden="true"></a>Usage</h2>
-        <br>
-        <p>Just pass the <code>`url`</code> to the service as query parameter:</p>
+        <h3><a id="url" href="#url" aria-hidden="true"></a>as URL</h3>
+        <p>You Just pass the <code>`url`</code> to the service as query parameter:</p>
         <a target="_blank"
           href="https://pretty-json.now.sh?url=https://microlink-stats-api.now.sh">pretty-json.now.sh?url=https://microlink-stats-api.now.sh</a>
-        <br>
+        <h3><a id="data" href="#data" aria-hidden="true"></a>as data</h3>
+        <p>Additionally, you can provide the JSON payload as <code>`data`</code> query parameter:</p>
+        <a target="_blank"
+          href='https://pretty-json.now.sh?data=%7B"foo"%3A"bar"%2C"hello"%3A"world"%2C"ping"%3A12234%7D'>pretty-json.now.sh?data=%7B"foo"%3A"bar"%2C"hello"%3A"world"%2C"ping"%3A12234%7D</a>
+        <p>It needs to be encoded with <a target="_blank"
+            href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent'>encodeURIComponent</a>)
+          .</p>
+        <h3><a id="themeable" href="#themeable" aria-hidden="true"></a>themeable</h3>
         <p>You can also customize the <code>`theme`</code>:</p>
         <a target="_blank"
           href="https://pretty-json.now.sh?url=https://microlink-stats-api.now.sh&theme=atom-dark">pretty-json.now.sh?url=https://microlink-stats-api.now.sh&theme=atom-dark</a>
-        <p>See the <a href="https://github.com/PrismJS/prism-themes/tree/master/themes" target="_blank">list of
-            available themes</a>.
-        </p>
+        <p>The <a href="https://github.com/PrismJS/prism-themes/tree/master/themes" target="_blank">supported themes</a>
+          are:</p>
+        <ul>
+          <li>a11y-dark</li>
+          <li>atom-dark</li>
+          <li>base16-ateliersulphurpool.light</li>
+          <li>cb</li>
+          <li>darcula</li>
+          <li>dracula</li>
+          <li>duotone-dark</li>
+          <li>duotone-earth</li>
+          <li>duotone-forest</li>
+          <li>duotone-light</li>
+          <li>duotone-sea</li>
+          <li>duotone-space</li>
+          <li>ghcolors</li>
+          <li>hopscotch</li>
+          <li>material-dark</li>
+          <li>material-light</li>
+          <li>material-oceanic</li>
+          <li>pojoaque</li>
+          <li>shades-of-purple</li>
+          <li>synthwave84</li>
+          <li>vs</li>
+          <li>vsc-dark-plus</li>
+          <li>xonokai</li>
+        </ul>
+
+
+
+
       </section>
       <!-- <section>
         <h2><a id="why" href="#why" aria-hidden="true"></a>Why?</h2>

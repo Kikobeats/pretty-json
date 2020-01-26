@@ -39,9 +39,7 @@ ${JSON.stringify(payload, null, 2)}
 module.exports = async (req, res) => {
   res.setHeader('Content-Type', 'text/html; charset=utf-8')
   res.setHeader('Access-Control-Allow-Origin', '*')
-
-  const { url, theme = 'atom-dark' } = toQuery(req.url)
-  const payload = await got(url).json()
-
+  const { url, data, theme = 'atom-dark' } = toQuery(req.url)
+  const payload = url ? await got(url).json() : data
   return send(res, 200, html(payload, theme))
 }
