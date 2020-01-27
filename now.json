@@ -19,7 +19,7 @@
     },
     {
       "src": "/(.*)",
-      "dest": "./src/template.js"
+      "dest": "/src/index.js"
     }
   ]
 }
