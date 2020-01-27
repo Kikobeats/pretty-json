@@ -5,8 +5,9 @@ const { readFileSync } = require('fs')
 const toQuery = require('to-query')()
 const { send } = require('micri')
 const got = require('got')
+const path = require('path')
 
-const prism = readFileSync('./src/prism.js')
+const prism = readFileSync(path.resolve(__dirname, 'prism.js'))
 
 const FS_CACHE = Object.create(null)
 
