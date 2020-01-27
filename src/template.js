@@ -1,14 +1,19 @@
 'use strict'
 
+const { readFile } = require('fs').promises
+const { readFileSync } = require('fs')
 const toQuery = require('to-query')()
 const { send } = require('micri')
 const got = require('got')
 
+const prism = readFileSync('./src/prism.js')
+
+const FS_CACHE = Object.create(null)
+
 const html = (payload, theme, style) => `
 <html>
   <head>
-    <link href="https://fonts.googleapis.com/css?family=PT+Mono&subset=cyrillic,cyrillic-ext,latin-ext" rel="stylesheet">
-    <link href="https://raw.githack.com/PrismJS/prism-themes/master/themes/prism-${theme}.css" rel="stylesheet">
+    <style>${theme}</style>
     <style>
       body {
         margin: 0;
@@ -29,6 +34,7 @@ const html = (payload, theme, style) => `
         padding-bottom: 0;
         font-weight: normal;
         font-family: "Operator Mono", "Fira Code", "SF Mono", "Roboto Mono", Menlo, monospace;
+        line-height: 1.6;
         ${style};
       }
     </style>
@@ -40,14 +46,21 @@ ${JSON.stringify(payload, null, 2)}
       </code>
     </pre>
   </body>
-  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.19.0/prism.min.js"></script>
+  <script>${prism}</script>
 </html>
 `
 
 module.exports = async (req, res) => {
   res.setHeader('Content-Type', 'text/html; charset=utf-8')
   res.setHeader('Access-Control-Allow-Origin', '*')
-  const { style, url, data, theme = 'atom-dark' } = toQuery(req.url)
+  const { style, url, data, theme: themeId = 'atom-dark' } = toQuery(req.url)
+
+  const theme =
+    FS_CACHE[themeId] ||
+    (FS_CACHE[themeId] = await readFile(
+      `./node_modules/prism-themes/themes/prism-${themeId}.css`
+    ))
+
   const payload = url ? await got(url).json() : data
   return send(res, 200, html(payload, theme, style))
 }
