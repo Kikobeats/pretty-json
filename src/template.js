@@ -54,7 +54,7 @@ ${JSON.stringify(payload, null, 2)}
 module.exports = async (req, res) => {
   res.setHeader('Content-Type', 'text/html; charset=utf-8')
   res.setHeader('Access-Control-Allow-Origin', '*')
-  const { style, url, data, theme: themeId = 'atom-dark' } = toQuery(req.url)
+  const { style, url, data, theme: themeId = 'dracula' } = toQuery(req.url)
 
   const theme =
     FS_CACHE[themeId] ||
