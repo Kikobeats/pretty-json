@@ -59,7 +59,7 @@ module.exports = async (req, res) => {
   const theme =
     FS_CACHE[themeId] ||
     (FS_CACHE[themeId] = await readFile(
-      `./node_modules/prism-themes/themes/prism-${themeId}.css`
+      path.resolve(`node_modules/prism-themes/themes/prism-${themeId}.css`)
     ))
 
   const payload = url ? await got(url).json() : data
