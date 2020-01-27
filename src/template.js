@@ -36,6 +36,7 @@ const html = (payload, theme, style) => `
         font-weight: normal;
         font-family: "Operator Mono", "Fira Code", "SF Mono", "Roboto Mono", Menlo, monospace;
         line-height: 1.6;
+        border: 0;
         ${style};
       }
     </style>
@@ -54,7 +55,7 @@ ${JSON.stringify(payload, null, 2)}
 module.exports = async (req, res) => {
   res.setHeader('Content-Type', 'text/html; charset=utf-8')
   res.setHeader('Access-Control-Allow-Origin', '*')
-  const { style, url, data, theme: themeId = 'dracula' } = toQuery(req.url)
+  const { style = '', url, data, theme: themeId = 'dracula' } = toQuery(req.url)
 
   const theme =
     FS_CACHE[themeId] ||
