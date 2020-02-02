@@ -91,5 +91,10 @@
     "*.md": [
       "standard-markdown"
     ]
+  },
+  "standard": {
+    "ignore": [
+      "src/prism.js"
+    ]
   }
 }
